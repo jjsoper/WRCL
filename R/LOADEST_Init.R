@@ -245,6 +245,7 @@ generate.reports <- function(start.date, end.date, filter.list, flowsource.list)
         
         if (write.report == T) {
           wd <- getwd()
+          ifelse(!dir.exists(file.path('reports')), dir.create(file.path('reports')), FALSE)
           setwd(file.path(wd,"reports"))
           loadReport(load.mod, paste(tributary, flowsource, sep.filter))
           setwd(wd)
@@ -253,6 +254,7 @@ generate.reports <- function(start.date, end.date, filter.list, flowsource.list)
         dat <- load.obs.sim(tributary = tributary,load.mod = load.mod, flow = source$Q, tmp = tmp)
         loadest.models[[tributary]] <- loadest.plts(dat = dat, load.mod = load.mod, tributary = tributary, sep.filter = sep.filter, 
                                                     start.date = start.date, end.date = end.date)
+        ifelse(!dir.exists(file.path('figures')), dir.create(file.path('figures')), FALSE)
         pdf(file.path(loadest.folder, 'figures', paste(flowsource, sep.filter, "Loadest Models (Flow and Time).pdf")), width = 10, height = 7)
         for (plt in loadest.models) {
           grid.draw(plt)
@@ -264,7 +266,7 @@ generate.reports <- function(start.date, end.date, filter.list, flowsource.list)
   }
 }
 # generate.reports(start.date = '2000-01-01', end.date = '2019-12-31', filter.list = c('hysep-l', 'hysep-f', 'hysep-s'), flowsource.list = c('Total', 'Baseflow'))
-# generate.reports(start.date = '2000-01-01', end.date = '2019-12-31', filter.list = c('hysep-l'), flowsource.list = c('Total', 'Baseflow'))
+generate.reports(start.date = '2000-01-01', end.date = '2019-12-31', filter.list = c('hysep-l'), flowsource.list = c('Total', 'Baseflow'))
 # ERROR METRICS -------------------------------------------------
 
 return.stats <- function(model) {
@@ -295,8 +297,11 @@ model.stats <- function(start.date, end.date, sep.filter, write.clipboard) {
   
   if (write.clipboard == T) {
     write.table(stats, 'clipboard', quote = F, sep = '\t', row.names = F)
-  } else {write.csv(x = stats, file = file.path('stats', paste(sep.filter,'stats.csv', sep = '_')), quote = F, row.names = F)}
+  } else {
+    ifelse(!dir.exists(file.path('stats')), dir.create(file.path('stats')), FALSE)
+    write.csv(x = stats, file = file.path('stats', paste(sep.filter,'stats.csv', sep = '_')), quote = F, row.names = F)
+    }
     
 }
 
-# model.stats(start.date = '2000-01-01', end.date = '2019-12-31', sep.filter = 'hysep-l', write.clipboard = F)
+model.stats(start.date = '2000-01-01', end.date = '2019-12-31', sep.filter = 'hysep-l', write.clipboard = F)
