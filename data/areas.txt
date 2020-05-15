@@ -1,0 +1,13 @@
+FID,UMASS_WSHD,ID,AREA
+0,French Brook,1,5.4601102
+1,Gates Brook,2,5.2446699
+2,Malagasco Brook,3,2.2622800
+3,Malden Brook,4,6.6483998
+4,Muddy Brook,5,1.9264801
+5,Sink,6,0.2702560
+6,Quinapoxet River,7,125.5120010
+7,Stillwater River,8,78.4630966
+8,Trout Brook,9,17.5401993
+9,Direct Runoff,10,26.4627991
+10,Waushacum Brook,11,16.1077003
+11,West Boylston Brook,12,0.9189990
